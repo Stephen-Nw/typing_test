@@ -1,1 +1,1 @@
-# typing_test
+# Python program to test typing speed
