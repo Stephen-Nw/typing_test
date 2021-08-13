@@ -2,8 +2,16 @@ from time import sleep
 
 
 def countdown_time():
-    for t in range(0, 60):
+    counter = 60
+
+    while counter > 0:
         sleep(1)
-        timer = t
-    return timer
+        counter -= 1
+        print(counter)
+    return counter
+
+
+countdown_time()
+
+
 
