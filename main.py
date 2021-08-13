@@ -1,6 +1,8 @@
 from tkinter import *
 from tkinter import ttk
 from tkinter.font import Font
+from time import sleep
+import threading
 
 root = Tk()
 root.title("Stephen Typing Test")
@@ -13,8 +15,21 @@ main_frame.grid(row=0, column=0)
 # tertiary_frame = ttk.Frame(root, padding=10, width=950, height=350)
 # tertiary_frame.grid(row=3, column=0)
 
+counter = 10
+
+
+def countdown_time():
+    global counter
+    while counter > 0:
+        sleep(1)
+        counter -= 1
+        print(counter)
+    return counter
+
 
 def start_typing():
+    threading.Thread(target=countdown_time).start()
+
     start_button.destroy()
 
     secondary_frame = ttk.Frame(root, padding=10, width=950, height=350)
@@ -58,6 +73,7 @@ words_font = Font(family="Luminrari", size=11, weight="normal")
 app_header = ttk.Label(main_frame, text="TEST YOUR TYPING SPEED", anchor="center", font=heading_font, padding=15)
 app_header.grid(row=0, column=0, columnspan=4)
 
+# start_button = ttk.Button(main_frame, text=">>>Click To Start<<<", command=start_typing)
 start_button = ttk.Button(main_frame, text=">>>Click To Start<<<", command=start_typing)
 start_button.grid(row=1, column=1)
 
