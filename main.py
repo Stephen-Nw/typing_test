@@ -9,43 +9,32 @@ root.title("Stephen Typing Test")
 main_frame = ttk.Frame(root, padding=10, width=950, height=350)
 main_frame.grid(row=0, column=0)
 
-# secondary_frame = ttk.Frame(root, padding=10, width=950, height=350)
-# secondary_frame.grid(row=2, column=0)
+counter_frame = ttk.Frame(root, padding=5, width=950, height=350)
+counter_frame.grid(row=2, column=0)
 
-# tertiary_frame = ttk.Frame(root, padding=10, width=950, height=350)
-# tertiary_frame.grid(row=3, column=0)
-
-counter = 10
+counter = 0
 
 
 def countdown_time():
     global counter
-    while counter > 0:
-        sleep(1)
-        counter -= 1
-        print(counter)
+    timer_label.config(text=f"Timer: {counter} secs")
+    timer_label.after(1000, countdown_time)
+    counter += 1
     return counter
 
 
 def start_typing():
-    threading.Thread(target=countdown_time).start()
-
     start_button.destroy()
+    countdown_time()
 
     secondary_frame = ttk.Frame(root, padding=10, width=950, height=350)
-    secondary_frame.grid(row=2, column=0)
+    secondary_frame.grid(row=3, column=0)
 
     words_label = ttk.Label(main_frame, text=ipsum_lorem, font=words_font, padding=10, relief="solid", wraplength=550)
     words_label.grid(row=2, column=0, columnspan=4)
 
     user_text = Text(secondary_frame, height=10, width=70, relief="solid")
     user_text.grid(row=0, column=0, columnspan=4)
-
-    timer_label = ttk.Label(secondary_frame, text="timer: placeholder", anchor="nw", width=60, padding=(0, 10))
-    timer_label.grid(row=1, column=0)
-
-    wpm_label = ttk.Label(secondary_frame, text="wpm: placeholder", anchor="nw")
-    wpm_label.grid(row=1, column=2)
 
 
 results = "Well done!! Your typing speed is ____ words per minute!! \n\n" \
@@ -73,23 +62,16 @@ words_font = Font(family="Luminrari", size=11, weight="normal")
 app_header = ttk.Label(main_frame, text="TEST YOUR TYPING SPEED", anchor="center", font=heading_font, padding=15)
 app_header.grid(row=0, column=0, columnspan=4)
 
-# start_button = ttk.Button(main_frame, text=">>>Click To Start<<<", command=start_typing)
 start_button = ttk.Button(main_frame, text=">>>Click To Start<<<", command=start_typing)
 start_button.grid(row=1, column=1)
 
-# words_label = ttk.Label(main_frame, text=ipsum_lorem, font=words_font, padding=10, relief="solid", wraplength=550)
-# words_label.grid(row=2, column=0, columnspan=4)
+timer_label = ttk.Label(counter_frame, text="Timer: ", anchor="nw", width=70)
+timer_label.grid(row=1, column=0)
 
-# user_text = Text(secondary_frame, height=10, width=70, relief="solid")
-# user_text.grid(row=0, column=0, columnspan=4)
+wpm_label = ttk.Label(counter_frame, text="wpm: placeholder", anchor="nw")
+wpm_label.grid(row=1, column=2)
 
-# timer_label = ttk.Label(secondary_frame, text="timer: placeholder", anchor="nw", width=60, padding=(0, 10))
-# timer_label.grid(row=1, column=0)
-
-# wpm_label = ttk.Label(secondary_frame, text="wpm: placeholder", anchor="nw")
-# wpm_label.grid(row=1, column=2)
-
-# results_label = ttk.Label(tertiary_frame, text=results, padding=10, relief="solid", width=75, justify="left")
+# results_label = ttk.Label(counter_frame, text=results, padding=10, relief="solid", width=75, justify="left")
 # results_label.grid(row=0, column=0)
 
 root.mainloop()
