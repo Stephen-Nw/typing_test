@@ -1,8 +1,6 @@
 from tkinter import *
 from tkinter import ttk
 from tkinter.font import Font
-from time import sleep
-import threading
 
 root = Tk()
 root.title("Stephen Typing Test")
@@ -10,16 +8,18 @@ main_frame = ttk.Frame(root, padding=10, width=950, height=350)
 main_frame.grid(row=0, column=0)
 
 counter_frame = ttk.Frame(root, padding=5, width=950, height=350)
-counter_frame.grid(row=2, column=0)
+counter_frame.grid(row=1, column=0)
 
 counter = 0
 
 
+# ============================FUNCTIONS==================================#
 def countdown_time():
     global counter
-    timer_label.config(text=f"Timer: {counter} secs")
-    timer_label.after(1000, countdown_time)
-    counter += 1
+    if counter <= 10:
+        timer_label.config(text=f"Timer: {counter} secs")
+        timer_label.after(1000, countdown_time)
+        counter += 1
     return counter
 
 
@@ -53,12 +53,14 @@ ipsum_lorem = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do e
               "In tellus integer feugiat scelerisque varius morbi enim. Morbi tempus iaculis urna id volutpat " \
               "lacus laoreet non."
 
-# ==============Fonts=============================== #
+
+# ==============FONTS=============================== #
 heading_font = Font(family="Luminari", size=30, weight="bold", slant="italic", underline=1)
 start_font = Font(family="Luminrari", size=20, weight="bold")
 words_font = Font(family="Luminrari", size=11, weight="normal")
 
-# ==============UI Design========================== #
+
+# ==============UI DESIGN========================== #
 app_header = ttk.Label(main_frame, text="TEST YOUR TYPING SPEED", anchor="center", font=heading_font, padding=15)
 app_header.grid(row=0, column=0, columnspan=4)
 
