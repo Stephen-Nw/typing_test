@@ -30,7 +30,6 @@ def start_typing():
         word_per_min = wpm_calculation(word_length, counter)
         wpm_label.config(text=f"WPM: {word_per_min}")
 
-
     global counter
     start_button.destroy()
     countdown_time()
