@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter import ttk
 from tkinter.font import Font
+from wpm_functions import wpm_calculation
 
 root = Tk()
 root.title("Stephen Typing Test")
@@ -16,14 +17,21 @@ counter = 0
 # ============================FUNCTIONS==================================#
 def countdown_time():
     global counter
-    if counter <= 10:
-        timer_label.config(text=f"Timer: {counter} secs")
+    if counter <= 60:
+        timer_label.config(text=f"Time: {counter} secs")
         timer_label.after(1000, countdown_time)
         counter += 1
     return counter
 
 
 def start_typing():
+    def words_per_minute(event):
+        word_length = len(user_text.get("1.0", "end"))
+        word_per_min = wpm_calculation(word_length, counter)
+        wpm_label.config(text=f"WPM: {word_per_min}")
+
+
+    global counter
     start_button.destroy()
     countdown_time()
 
@@ -35,6 +43,13 @@ def start_typing():
 
     user_text = Text(secondary_frame, height=10, width=70, relief="solid")
     user_text.grid(row=0, column=0, columnspan=4)
+
+    user_text.bind_all('<Key-Return>', words_per_minute)
+    user_text.bind_all('<KeyPress-a>', words_per_minute)
+    user_text.bind_all('<KeyPress-o>', words_per_minute)
+    user_text.bind_all('<KeyPress-p>', words_per_minute)
+    user_text.bind_all('<KeyPress-u>', words_per_minute)
+    user_text.bind_all('<KeyPress-f>', words_per_minute)
 
 
 results = "Well done!! Your typing speed is ____ words per minute!! \n\n" \
@@ -53,12 +68,10 @@ ipsum_lorem = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do e
               "In tellus integer feugiat scelerisque varius morbi enim. Morbi tempus iaculis urna id volutpat " \
               "lacus laoreet non."
 
-
 # ==============FONTS=============================== #
 heading_font = Font(family="Luminari", size=30, weight="bold", slant="italic", underline=1)
 start_font = Font(family="Luminrari", size=20, weight="bold")
 words_font = Font(family="Luminrari", size=11, weight="normal")
-
 
 # ==============UI DESIGN========================== #
 app_header = ttk.Label(main_frame, text="TEST YOUR TYPING SPEED", anchor="center", font=heading_font, padding=15)
@@ -75,5 +88,6 @@ wpm_label.grid(row=1, column=2)
 
 # results_label = ttk.Label(counter_frame, text=results, padding=10, relief="solid", width=75, justify="left")
 # results_label.grid(row=0, column=0)
+
 
 root.mainloop()
