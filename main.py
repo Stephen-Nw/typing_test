@@ -1,17 +1,20 @@
+import random
 from tkinter import *
 from tkinter import ttk
 from tkinter.font import Font
 from wpm_functions import wpm_calculation
+from samples_and_report import samples
+
 
 root = Tk()
 root.title("Stephen Typing Test")
 main_frame = ttk.Frame(root, padding=10, width=950, height=350)
 main_frame.grid(row=0, column=0)
-
 counter_frame = ttk.Frame(root, padding=5, width=950, height=350)
 counter_frame.grid(row=1, column=0)
 
 counter = 0
+phrase_to_type = random.choice(samples)
 
 
 # ============================FUNCTIONS==================================#
@@ -29,6 +32,9 @@ def start_typing():
         word_length = len(user_text.get("1.0", "end"))
         word_per_min = wpm_calculation(word_length, counter)
         wpm_label.config(text=f"WPM: {word_per_min}")
+        
+    def final_word_per_min_calculation(event):
+        pass
 
     global counter
     start_button.destroy()
@@ -37,13 +43,13 @@ def start_typing():
     secondary_frame = ttk.Frame(root, padding=10, width=950, height=350)
     secondary_frame.grid(row=3, column=0)
 
-    words_label = ttk.Label(main_frame, text=ipsum_lorem, font=words_font, padding=10, relief="solid", wraplength=550)
+    words_label = ttk.Label(main_frame, text=phrase_to_type, font=words_font, padding=10, relief="solid", wraplength=550)
     words_label.grid(row=2, column=0, columnspan=4)
 
     user_text = Text(secondary_frame, height=10, width=70, relief="solid")
     user_text.grid(row=0, column=0, columnspan=4)
 
-    user_text.bind_all('<Key-Return>', words_per_minute)
+    user_text.bind_all('<Key-Return>', final_word_per_min_calculation())
     user_text.bind_all('<KeyPress-a>', words_per_minute)
     user_text.bind_all('<KeyPress-o>', words_per_minute)
     user_text.bind_all('<KeyPress-p>', words_per_minute)
@@ -54,18 +60,6 @@ def start_typing():
 results = "Well done!! Your typing speed is ____ words per minute!! \n\n" \
           "You made ___ mistakes in your typing\n\n" \
           "The mistakes you made are: "
-
-ipsum_lorem = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore" \
-              " et dolore magna aliqua. Eu feugiat pretium nibh ipsum consequat nisl vel. Nisl pretium fusce id " \
-              "velit. Curabitur gravida arcu ac tortor. Sagittis nisl rhoncus mattis rhoncus urna neque. Amet nulla" \
-              " facilisi morbi tempus. Ut sem nulla pharetra diam sit amet. Suscipit adipiscing bibendum est " \
-              "ultricies. Ac auctor augue mauris augue neque gravida in fermentum. Ante metus dictum at tempor " \
-              "commodo ullamcorper a lacus. Sit amet mauris commodo quis massa. Id faucibus nisl tincidunt" \
-              " eget nullam. Augue mauris augue neque gravida in fermentum. Sem integer vitae justo eget magna " \
-              "fermentum iaculis. Placerat in egestas erat imperdiet sed euismod nisi porta lorem. Est ullamcorper " \
-              "eget nulla facilisi etiam dignissim diam quis enim. Faucibus ornare suspendisse sed nisi lacus sed. " \
-              "In tellus integer feugiat scelerisque varius morbi enim. Morbi tempus iaculis urna id volutpat " \
-              "lacus laoreet non."
 
 # ==============FONTS=============================== #
 heading_font = Font(family="Luminari", size=30, weight="bold", slant="italic", underline=1)
