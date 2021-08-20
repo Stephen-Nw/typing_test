@@ -34,7 +34,12 @@ def start_typing():
         wpm_label.config(text=f"WPM: {word_per_min}")
         
     def final_word_per_min_calculation(event):
-        pass
+        words_label.destroy()
+        user_text.destroy()
+        timer_label.destroy()
+        wpm_label.destroy()
+        results_label = ttk.Label(counter_frame, text=results, padding=10, relief="solid", width=75, justify="left")
+        results_label.grid(row=0, column=0)
 
     global counter
     start_button.destroy()
@@ -49,17 +54,18 @@ def start_typing():
     user_text = Text(secondary_frame, height=10, width=70, relief="solid")
     user_text.grid(row=0, column=0, columnspan=4)
 
-    user_text.bind_all('<Key-Return>', final_word_per_min_calculation())
+    user_text.bind_all('<Key-Return>', final_word_per_min_calculation)
     user_text.bind_all('<KeyPress-a>', words_per_minute)
     user_text.bind_all('<KeyPress-o>', words_per_minute)
-    user_text.bind_all('<KeyPress-p>', words_per_minute)
+    user_text.bind_all('<KeyPress-i>', words_per_minute)
     user_text.bind_all('<KeyPress-u>', words_per_minute)
     user_text.bind_all('<KeyPress-f>', words_per_minute)
 
 
-results = "Well done!! Your typing speed is ____ words per minute!! \n\n" \
-          "You made ___ mistakes in your typing\n\n" \
-          "The mistakes you made are: "
+results = "Well done!! \n\n" \
+          "You typed for ___ seconds \n\n" \
+          "You typed ___ characters.\n\n" \
+          "Your typing speed is ____ words per minute!!"
 
 # ==============FONTS=============================== #
 heading_font = Font(family="Luminari", size=30, weight="bold", slant="italic", underline=1)
@@ -76,11 +82,15 @@ start_button.grid(row=1, column=1)
 timer_label = ttk.Label(counter_frame, text="Timer: ", anchor="nw", width=70)
 timer_label.grid(row=1, column=0)
 
-wpm_label = ttk.Label(counter_frame, text="wpm: placeholder", anchor="nw")
+wpm_label = ttk.Label(counter_frame, text="wpm: ", anchor="nw")
 wpm_label.grid(row=1, column=2)
 
-# results_label = ttk.Label(counter_frame, text=results, padding=10, relief="solid", width=75, justify="left")
-# results_label.grid(row=0, column=0)
+
+# TODO 1 Complete final_word_per_min_calculation function
+    # todo 1 destroy entry label and text frame; replace with analysis frame
+# TODO 2 Create introduction frame
+# TODO 3 Edit fonts
+
 
 
 root.mainloop()

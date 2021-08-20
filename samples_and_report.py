@@ -33,3 +33,11 @@ samples = [
     "ionic bonds.Electrons may also be shared between participating atoms to provide filled outer\n"
     "shells.These bonds are called covalent bonds."
 ]
+
+
+# def result_analysis(secs, num_char, wpm):
+#     results = "Well done!! \n\n" \
+#               f"You typed for {secs} seconds \n\n" \
+#               f"You typed {num_char} characters.\n\n" \
+#               f"Your typing speed is {wpm} words per minute!!"
+#     return results
