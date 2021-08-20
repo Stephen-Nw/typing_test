@@ -13,6 +13,8 @@ main_frame.grid(row=0, column=0)
 counter_frame = ttk.Frame(root, padding=5, width=950, height=350)
 counter_frame.grid(row=1, column=0)
 
+word_length = 0
+word_per_min = 0
 counter = 0
 phrase_to_type = random.choice(samples)
 
@@ -29,9 +31,12 @@ def countdown_time():
 
 def start_typing():
     def words_per_minute(event):
+        global word_length
+        global word_per_min
         word_length = len(user_text.get("1.0", "end"))
         word_per_min = wpm_calculation(word_length, counter)
         wpm_label.config(text=f"WPM: {word_per_min}")
+        return word_length, word_per_min
         
     def final_word_per_min_calculation(event):
         words_label.destroy()
