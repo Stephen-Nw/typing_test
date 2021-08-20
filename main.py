@@ -3,7 +3,7 @@ from tkinter import *
 from tkinter import ttk
 from tkinter.font import Font
 from wpm_functions import wpm_calculation
-from samples_and_report import samples, result_analysis
+from samples_and_report import samples, result_analysis, instructions
 
 root = Tk()
 root.title("Stephen Typing Test")
@@ -14,6 +14,7 @@ counter_frame.grid(row=1, column=0)
 
 counter = 0
 phrase_to_type = random.choice(samples)
+instruction = instructions()
 
 
 # ============================FUNCTIONS==================================#
@@ -46,12 +47,13 @@ def start_typing():
 
     global counter
     start_button.destroy()
+    instruction_label.destroy()
     countdown_time()
 
     secondary_frame = ttk.Frame(root, padding=10, width=950, height=350)
     secondary_frame.grid(row=3, column=0)
 
-    words_label = ttk.Label(main_frame, text=phrase_to_type, font=words_font, padding=10, relief="solid",
+    words_label = ttk.Label(main_frame, text=phrase_to_type, font=words_font, padding=5, relief="solid",
                             wraplength=550)
     words_label.grid(row=2, column=0, columnspan=4)
 
@@ -73,14 +75,18 @@ start_font = Font(family="Luminrari", size=20, weight="bold")
 words_font = Font(family="Luminrari", size=11, weight="normal")
 
 # ==============UI DESIGN========================== #
-app_header = ttk.Label(main_frame, text="TEST YOUR TYPING SPEED", anchor="center", font=heading_font, padding=15)
+app_header = ttk.Label(main_frame, text="TEST YOUR TYPING SPEED", anchor="center", font=heading_font, padding=5)
 app_header.grid(row=0, column=0, columnspan=4)
 
-# instruction_label = ttk.Label(main_frame, text="This is going to be long", anchor="center", font=words_font, padding=5)
-# instruction_label.grid(row=1, column=0, columnspan=6)
+instruction_label = ttk.Label(main_frame, text=instruction, anchor="ne", font=words_font, padding=5,
+                              wraplength=550, relief="solid")
+instruction_label.grid(row=1, column=0, columnspan=4, pady=10)
 
 start_button = ttk.Button(main_frame, text=">>>Click To Start<<<", command=start_typing)
-start_button.grid(row=1, column=1)
+start_button.grid(row=2, column=1)
+
+# start_button = ttk.Button(main_frame, text=">>>Click To Start<<<", command=start_typing)
+# start_button.grid(row=1, column=1)
 
 timer_label = ttk.Label(counter_frame, text="Timer: ", anchor="nw", width=70)
 timer_label.grid(row=1, column=0)
