@@ -19,6 +19,7 @@ instruction = instructions()
 
 # ============================FUNCTIONS==================================#
 def countdown_time():
+    """timer that increments every second"""
     global counter
     timer_label.config(text=f"Time: {counter} secs")
     timer_label.after(1000, countdown_time)
@@ -27,13 +28,17 @@ def countdown_time():
 
 
 def start_typing():
+    """Creates initial label containing text for user to type and entry where user types"""
     def words_per_minute(event):
+        """Calculates user wpm while typing"""
         word_length = len(user_text.get("1.0", "end-2c"))
         word_per_min = wpm_calculation(word_length, counter)
         wpm_label.config(text=f"WPM: {word_per_min}")
 
     def final_word_per_min_calculation(event):
-        final_word_length = len(user_text.get("1.0", "end-2c"))
+        """Calculate final wpm after user hits Return. Destroys other widgets and creates a new result
+        widget with user summary"""
+        final_word_length = len(user_text.get("1.0", "end-2c"))  # end-2c removes 2 xters at end of text
         final_word_per_min = wpm_calculation(final_word_length, counter)
 
         words_label.destroy()
@@ -59,7 +64,7 @@ def start_typing():
 
     user_text = Text(secondary_frame, height=10, width=70, relief="solid")
     user_text.grid(row=0, column=0, columnspan=4)
-    user_text.focus()
+    user_text.focus()  # Set cursor in entry field
 
     user_text.bind_all('<Key-Return>', final_word_per_min_calculation)
     user_text.bind_all('<KeyPress-a>', words_per_minute)
@@ -70,9 +75,9 @@ def start_typing():
 
 
 # ==============FONTS=============================== #
-heading_font = Font(family="Luminari", size=30, weight="bold", slant="italic", underline=1)
-start_font = Font(family="Luminrari", size=20, weight="bold")
-words_font = Font(family="Luminrari", size=11, weight="normal")
+heading_font = Font(family="Helvetica", size=25, weight="bold", slant="italic", underline=1)
+start_font = Font(family="Helvetica", size=20, weight="bold")
+words_font = Font(family="Helvetica", size=11, weight="normal")
 
 # ==============UI DESIGN========================== #
 app_header = ttk.Label(main_frame, text="TEST YOUR TYPING SPEED", anchor="center", font=heading_font, padding=5)
@@ -85,17 +90,11 @@ instruction_label.grid(row=1, column=0, columnspan=4, pady=10)
 start_button = ttk.Button(main_frame, text=">>>Click To Start<<<", command=start_typing)
 start_button.grid(row=2, column=1)
 
-# start_button = ttk.Button(main_frame, text=">>>Click To Start<<<", command=start_typing)
-# start_button.grid(row=1, column=1)
-
 timer_label = ttk.Label(counter_frame, text="Timer: ", anchor="nw", width=70)
 timer_label.grid(row=1, column=0)
 
 wpm_label = ttk.Label(counter_frame, text="wpm: ", anchor="nw")
 wpm_label.grid(row=1, column=2)
-
-# TODO 2 Create introduction frame
-# TODO 3 Edit fonts
 
 
 root.mainloop()

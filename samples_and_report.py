@@ -28,6 +28,7 @@ samples = [
 
 
 def result_analysis(secs, num_char, wpm):
+    """Text to display user typing analysis"""
     results = "Well done!! \n\n" \
               f"You typed for {secs} seconds \n\n" \
               f"You typed {num_char} characters.\n\n" \
@@ -36,7 +37,8 @@ def result_analysis(secs, num_char, wpm):
 
 
 def instructions():
-    instruction = "Instruction - Click the button below to start. Type your text in the blank entry field. You may type" \
+    """Application instructions"""
+    instruction = "Instructions: Click the button below to start. Type your text in the blank entry field. Type" \
                   " for as long as you wish. Hit Enter when done to receive an analysis of your typing skills"
     return instruction
 
