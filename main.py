@@ -27,12 +27,12 @@ def countdown_time():
 
 def start_typing():
     def words_per_minute(event):
-        word_length = len(user_text.get("1.0", "end-1c"))
+        word_length = len(user_text.get("1.0", "end-2c"))
         word_per_min = wpm_calculation(word_length, counter)
         wpm_label.config(text=f"WPM: {word_per_min}")
 
     def final_word_per_min_calculation(event):
-        final_word_length = len(user_text.get("1.0", "end-1c"))
+        final_word_length = len(user_text.get("1.0", "end-2c"))
         final_word_per_min = wpm_calculation(final_word_length, counter)
 
         words_label.destroy()
@@ -57,6 +57,7 @@ def start_typing():
 
     user_text = Text(secondary_frame, height=10, width=70, relief="solid")
     user_text.grid(row=0, column=0, columnspan=4)
+    user_text.focus()
 
     user_text.bind_all('<Key-Return>', final_word_per_min_calculation)
     user_text.bind_all('<KeyPress-a>', words_per_minute)
@@ -66,11 +67,6 @@ def start_typing():
     user_text.bind_all('<KeyPress-f>', words_per_minute)
 
 
-# results = "Well done!! \n\n" \
-#           "You typed for ___ seconds \n\n" \
-#           "You typed ___ characters.\n\n" \
-#           "Your typing speed is ____ words per minute!!"
-
 # ==============FONTS=============================== #
 heading_font = Font(family="Luminari", size=30, weight="bold", slant="italic", underline=1)
 start_font = Font(family="Luminrari", size=20, weight="bold")
@@ -79,6 +75,9 @@ words_font = Font(family="Luminrari", size=11, weight="normal")
 # ==============UI DESIGN========================== #
 app_header = ttk.Label(main_frame, text="TEST YOUR TYPING SPEED", anchor="center", font=heading_font, padding=15)
 app_header.grid(row=0, column=0, columnspan=4)
+
+# instruction_label = ttk.Label(main_frame, text="This is going to be long", anchor="center", font=words_font, padding=5)
+# instruction_label.grid(row=1, column=0, columnspan=6)
 
 start_button = ttk.Button(main_frame, text=">>>Click To Start<<<", command=start_typing)
 start_button.grid(row=1, column=1)
