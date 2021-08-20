@@ -35,9 +35,9 @@ samples = [
 ]
 
 
-# def result_analysis(secs, num_char, wpm):
-#     results = "Well done!! \n\n" \
-#               f"You typed for {secs} seconds \n\n" \
-#               f"You typed {num_char} characters.\n\n" \
-#               f"Your typing speed is {wpm} words per minute!!"
-#     return results
+def result_analysis(secs, num_char, wpm):
+    results = "Well done!! \n\n" \
+              f"You typed for {secs} seconds \n\n" \
+              f"You typed {num_char} characters.\n\n" \
+              f"Your typing speed is {wpm} words per minute!!"
+    return results
