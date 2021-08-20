@@ -40,4 +40,7 @@ def result_analysis(secs, num_char, wpm):
               f"You typed for {secs} seconds \n\n" \
               f"You typed {num_char} characters.\n\n" \
               f"Your typing speed is {wpm} words per minute!!"
+    print(f"Time: {secs} secs")
+    print(f"number of characters: {num_char}")
+    print(f"wpm: {wpm}")
     return results
